@@ -129,13 +129,14 @@ const Products = (props) => {
   let list = items.map((item, index) => {
     let n = index + 1049;
     let uhit = "https://picsum.photos/" + n;
+
     return (
       <li key={index}>
         <Image src={uhit} width={70} roundedCircle></Image>
         <Button variant="primary" size="large">
           {item.name}: ${item.cost} &emsp; Stock={item.instock}
         </Button>
-        <input name={item.name} type="submit" onClick={addToCart}></input>
+        <Button className="btn btn-warning" name={item.name} type="submit" onClick={addToCart}>Add to Cart</Button>
       </li>
     );
   });
