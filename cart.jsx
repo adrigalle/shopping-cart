@@ -5,6 +5,8 @@ const products = [
   { name: "Beans", country: "USA", cost: 2, instock: 5 },
   { name: "Cabbage", country: "USA", cost: 1, instock: 8 },
 ];
+
+
 //=========Cart=============
 const Cart = (props) => {
   const { Card, Accordion, Button } = ReactBootstrap;
@@ -101,6 +103,7 @@ const Products = (props) => {
 
   console.log(`Rendering Products ${JSON.stringify(data)}`);
   // Fetch Data
+
   const addToCart = (e) => {
     let name = e.target.name;
     let item = items.filter((item) => item.name == name);
@@ -111,7 +114,6 @@ const Products = (props) => {
     console.log(`add to Cart ${JSON.stringify(item)}`);
     setCart([...cart, ...item]);
     //doFetch(query);
-    // need to add stocking reduction
   }; 
   const deleteCartItem = (delIndex) => {
     let newCart = cart.filter((item, i) => delIndex != i); // this makes new list without target item
@@ -133,10 +135,10 @@ const Products = (props) => {
     return (
       <li key={index}>
         <Image src={uhit} width={70} roundedCircle></Image>
-        <Button variant="primary" size="large">
+        <Button className="btn btn-cute" size="large">
           {item.name}: ${item.cost} &emsp; Stock={item.instock}
         </Button>
-        <Button className="btn btn-warning" name={item.name} type="submit" onClick={addToCart}>Add to Cart</Button>
+        <Button className="btn btn-add-cart" name={item.name} type="submit" onClick={addToCart}>Add to Cart</Button>
       </li>
     );
   });
@@ -166,7 +168,10 @@ const Products = (props) => {
     let final = cart.map((item, index) => {
       return (
         <div key={index} index={index}>
-          {item.name}
+          <Row>
+            <Col>{item.name}</Col>
+            <Col>${item.cost}</Col>
+          </Row>
         </div>
       );
     });
@@ -205,7 +210,7 @@ const Products = (props) => {
         </Col>
         <Col>
           <h1>Check Out </h1>
-          <Button onClick={checkOut}>Check Out $ {finalList().total}</Button>
+          <Button className="btn btn-cute" onClick={checkOut}>Check Out $ {finalList().total}</Button>
           <div> {finalList().total > 0 && finalList().final} </div>
         </Col>
       </Row>
@@ -222,7 +227,7 @@ const Products = (props) => {
             value={query}
             onChange={(event) => setQuery(event.target.value)}
           />
-          <button type="submit">ReStock Products</button>
+          <Button className="btn-restock" type="submit">ReStock Products</Button>
         </form>
       </Row>
     </Container>
